@@ -12,15 +12,20 @@ class CurrenciesController extends Controller
         $currencies = app(CurrencyRepositoryInterface::class)->findActive();
         $activeCurrencies = [];
         foreach ($currencies as $currency) {
-            $activeCurrencies[] = [
-                'id' => $currency->getId(),
-                'name' => $currency->getName(),
-                'short_name' => $currency->getShortName(),
-                'actual_course' => $currency->getActualCourse(),
-                'actual_course_date' => $currency->getActualCourseDate()->format('Y-m-d H-i-s'),
-                'active' => $currency->isActive()
-            ];
+            $activeCurrencies[] = \App\Services\CurrencyPresenter::present($currency);
         }
         return response()->json($activeCurrencies);
+    }
+
+    public function show($id)
+    {
+        $currency = app(CurrencyRepositoryInterface::class)->findById($id);
+        if (!is_null($currency)) {
+            return response()->json(\App\Services\CurrencyPresenter::present($currency));
+        } else {
+            return response()->json([
+                'message' => 'Currency not found'
+            ], 404);
+        }
     }
 }
