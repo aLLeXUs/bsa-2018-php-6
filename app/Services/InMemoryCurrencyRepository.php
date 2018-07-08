@@ -39,6 +39,12 @@ class InMemoryCurrencyRepository implements CurrencyRepositoryInterface
 
     public function save(Currency $currency): void
     {
+        foreach ($this->currencies as $key => $sourceCurrency) {
+            if ($sourceCurrency->getId() == $currency->getId()) {
+                $this->currencies[$key] = $currency;
+                return;
+            }
+        }
         $this->currencies[] = $currency;
     }
 
@@ -50,5 +56,10 @@ class InMemoryCurrencyRepository implements CurrencyRepositoryInterface
                 break;
             }
         }
+    }
+
+    public function getStoreId(): int
+    {
+        return last($this->currencies)->getId() + 1;
     }
 }

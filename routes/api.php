@@ -17,5 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/currencies', 'CurrenciesController@index');
-Route::get('/currencies/{id}', 'CurrenciesController@show');
+Route::resource('currencies', 'CurrenciesController', [
+    'only' => ['index', 'show']
+]);
+Route::resource('api/admin/currencies', 'Admin\CurrenciesController', [
+    'except' => ['edit', 'create']
+]);

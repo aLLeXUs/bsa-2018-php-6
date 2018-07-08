@@ -68,4 +68,44 @@ class Currency
     {
         return $this->active;
     }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $shortName
+     */
+    public function setShortName($shortName): void
+    {
+        $this->shortName = $shortName;
+    }
+
+    /**
+     * @param mixed $actualCourse
+     */
+    public function setActualCourse($actualCourse): void
+    {
+        $this->actualCourse = $actualCourse;
+    }
+
+    /**
+     * @param mixed $actualCourseDate
+     */
+    public function setActualCourseDate($actualCourseDate): void
+    {
+        $this->actualCourseDate = $actualCourseDate;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active): void
+    {
+        $this->active = $active;
+    }
 }

@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(\App\Services\CurrencyRepositoryInterface::class, function () {
+        $this->app->singleton(\App\Services\CurrencyRepositoryInterface::class, function () {
             return new \App\Services\InMemoryCurrencyRepository(\App\Services\CurrencyGenerator::generate());
         });
     }

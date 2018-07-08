@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\CurrencyRepositoryInterface;
 
 class CurrenciesController extends Controller
 {
     public function index()
     {
-        $currencies = app(CurrencyRepositoryInterface::class)->findActive();
+        $currencies = app(\App\Services\CurrencyRepositoryInterface::class)->findActive();
         $activeCurrencies = [];
         foreach ($currencies as $currency) {
             $activeCurrencies[] = \App\Services\CurrencyPresenter::present($currency);
@@ -19,7 +18,7 @@ class CurrenciesController extends Controller
 
     public function show($id)
     {
-        $currency = app(CurrencyRepositoryInterface::class)->findById($id);
+        $currency = app(\App\Services\CurrencyRepositoryInterface::class)->findById($id);
         if (!is_null($currency)) {
             return response()->json(\App\Services\CurrencyPresenter::present($currency));
         } else {
